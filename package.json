@@ -13,5 +13,9 @@
     "svelte": "^4.0.5",
     "vite": "^4.4.2"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "@sveltejs/adapter-node": "^5.2.5",
+    "@sveltejs/adapter-vercel": "^5.4.4"
+  }
 }
