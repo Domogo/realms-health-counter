@@ -1,5 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
+  import { fade, scale } from "svelte/transition";
+  import { cubicOut } from "svelte/easing";
 
   const dispatch = createEventDispatcher();
   let selectedHealth = 100;
@@ -20,7 +22,19 @@
         class:selected={selectedHealth === health}
         on:click={() => updateHealth(health)}
       >
-        {health}
+        {#key health}
+          <span
+            in:scale={{
+              start: 0.8,
+              opacity: 0,
+              duration: 300,
+              easing: cubicOut,
+            }}
+            out:fade={{ duration: 200 }}
+          >
+            {health}
+          </span>
+        {/key}
       </button>
     {/each}
   </div>
@@ -32,30 +46,90 @@
     margin-bottom: 20px;
   }
 
+  h2 {
+    color: var(--color-theme-1);
+    text-shadow: 0 0 10px var(--color-theme-1);
+    margin-bottom: 15px;
+  }
+
   .button-group {
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 15px;
   }
 
   button {
-    font-size: 16px;
-    padding: 5px 15px;
-    border: 2px solid #4caf50;
-    background-color: white;
-    color: #4caf50;
+    width: 80px;
+    height: 80px;
+    font-size: 20px;
+    padding: 10px;
+    border: 2px solid var(--color-theme-1);
+    background-color: var(--color-bg-2);
+    color: var(--color-text);
     cursor: pointer;
-    border-radius: 5px;
     transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
   }
 
-  button:hover {
-    background-color: #4caf50;
-    color: white;
+  button::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(
+      from 0deg,
+      transparent,
+      var(--color-theme-1),
+      transparent 360deg
+    );
+    animation: rotate 4s linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  button:hover::before,
+  button.selected::before {
+    opacity: 1;
+  }
+
+  button span {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-bg-2);
+  }
+
+  button:hover span,
+  button.selected span {
+    color: var(--color-theme-1);
+    text-shadow: 0 0 10px var(--color-theme-1);
   }
 
   button.selected {
-    background-color: #4caf50;
-    color: white;
+    box-shadow: 0 0 15px var(--color-theme-1);
+  }
+
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @media (max-width: 600px) {
+    button {
+      width: 70px;
+      height: 70px;
+      font-size: 18px;
+    }
   }
 </style>

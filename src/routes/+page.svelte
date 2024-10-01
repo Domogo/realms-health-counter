@@ -45,6 +45,7 @@
     padding: 0;
     height: 100%;
     overflow: hidden;
+    background-color: var(--color-bg-0);
   }
 
   .container {
@@ -77,9 +78,9 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 30px; /* Increased gap for larger buttons */
+    gap: 30px;
     width: 100%;
-    max-height: calc(100vh - 120px); /* Adjusted for larger buttons */
+    max-height: calc(100vh - 120px);
     overflow: auto;
   }
 
@@ -91,15 +92,18 @@
     padding: 15px 20px;
     font-size: 1.2rem;
     cursor: pointer;
-    background-color: #4caf50;
-    color: white;
+    background-color: var(--color-theme-1);
+    color: var(--color-bg-0);
     border: none;
-    border-radius: 5px;
-    transition: background-color 0.3s;
+    transition:
+      background-color 0.3s,
+      box-shadow 0.3s;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
   }
 
   .start-button:hover {
-    background-color: #45a049;
+    background-color: var(--color-theme-2);
+    box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
   }
 
   .back-button {
@@ -108,7 +112,7 @@
     left: 20px;
     background: none;
     border: none;
-    color: #4caf50;
+    color: var(--color-theme-1);
     font-size: 1rem;
     cursor: pointer;
     padding: 5px;
@@ -117,8 +121,7 @@
   }
 
   .back-button:hover {
-    color: #45a049;
-    text-decoration: underline;
+    color: var(--color-theme-2);
   }
 
   :global(.health-selector) {
@@ -133,6 +136,18 @@
     font-size: 1.5rem;
     padding: 20px;
     margin: 0;
+    background-color: var(--color-bg-2);
+    color: var(--color-text);
+    border: 1px solid var(--color-theme-1);
+    transition:
+      background-color 0.3s,
+      box-shadow 0.3s;
+  }
+
+  :global(.health-selector button:hover) {
+    background-color: var(--color-theme-1);
+    color: var(--color-bg-0);
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
   }
 
   @media (max-width: 600px) {

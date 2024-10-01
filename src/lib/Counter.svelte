@@ -1,10 +1,15 @@
 <script lang="ts">
+  import { fade, scale } from "svelte/transition";
+  import { cubicOut } from "svelte/easing";
+
   export let initialValue = 100;
   let count = initialValue;
+  let prevCount = count;
+  let direction: "up" | "down" | null = null;
 
   $: {
-    // Reset count when initialValue changes
-    count = initialValue;
+    direction = count < prevCount ? "down" : count > prevCount ? "up" : null;
+    prevCount = count;
   }
 
   function increment(amount: number) {
@@ -34,7 +39,21 @@
 
 <div class="counter-container">
   <div class="counter" on:click={handleDoubleTap()}>
-    {count}
+    <div class="counter-value">
+      {#key count}
+        <span
+          in:scale={{
+            start: 0.8,
+            opacity: 0,
+            duration: 300,
+            easing: cubicOut,
+          }}
+          out:fade={{ duration: 200 }}
+        >
+          {count}
+        </span>
+      {/key}
+    </div>
   </div>
   <div class="buttons">
     <button class="decrement" on:click={() => decrement(10)}>-10</button>
@@ -53,39 +72,113 @@
   }
 
   .counter {
-    width: 100px;
-    height: 100px;
-    background-color: #4caf50;
-    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    background-color: var(--color-bg-2);
+    border: 2px solid var(--color-theme-1);
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 24px;
-    color: white;
+    font-size: 28px;
+    color: var(--color-theme-1);
     cursor: pointer;
     user-select: none;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .counter::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(
+      from 0deg,
+      transparent,
+      var(--color-theme-1),
+      transparent 360deg
+    );
+    animation: rotate 4s linear infinite;
+  }
+
+  .counter-value {
+    background-color: var(--color-bg-2);
+    width: 94%;
+    height: 94%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .counter-value span {
+    display: inline-block;
+    text-shadow: 0 0 10px var(--color-theme-1);
   }
 
   .buttons {
     display: flex;
     justify-content: center;
-    margin-top: 10px;
+    margin-top: 15px;
   }
 
   button {
     margin: 0 5px;
-    padding: 5px 10px;
+    padding: 8px 12px;
     border: none;
-    border-radius: 5px;
-    color: white;
+    background-color: var(--color-bg-2);
+    color: var(--color-text);
     cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid var(--color-theme-1);
+  }
+
+  button:hover {
+    background-color: var(--color-theme-1);
+    color: var(--color-bg-0);
+    box-shadow: 0 0 10px var(--color-theme-1);
   }
 
   .increment {
-    background-color: #2196f3;
+    border-color: var(--color-theme-1);
   }
 
   .decrement {
-    background-color: #f44336;
+    border-color: var(--color-theme-2);
+  }
+
+  .increment:hover {
+    background-color: var(--color-theme-1);
+    box-shadow: 0 0 10px var(--color-theme-1);
+  }
+
+  .decrement:hover {
+    background-color: var(--color-theme-2);
+    box-shadow: 0 0 10px var(--color-theme-2);
+  }
+
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .counter {
+      width: 100px;
+      height: 100px;
+      font-size: 24px;
+    }
+
+    button {
+      padding: 6px 10px;
+      font-size: 14px;
+    }
   }
 </style>
