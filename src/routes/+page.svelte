@@ -77,9 +77,9 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 30px; /* Increased gap for larger buttons */
     width: 100%;
-    max-height: calc(100vh - 100px);
+    max-height: calc(100vh - 120px); /* Adjusted for larger buttons */
     overflow: auto;
   }
 
