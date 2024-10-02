@@ -71,7 +71,7 @@
 
   .game-content {
     justify-content: flex-start;
-    padding-top: 60px;
+    padding-top: 30px;
   }
 
   .counters {
