@@ -56,10 +56,16 @@
     </div>
   </div>
   <div class="buttons">
-    <button class="decrement" on:click={() => decrement(10)}>-10</button>
-    <button class="decrement" on:click={() => decrement(1)}>-1</button>
-    <button class="increment" on:click={() => increment(1)}>+1</button>
-    <button class="increment" on:click={() => increment(10)}>+10</button>
+    <div class="button-row">
+      <button class="increment" on:click={() => increment(1)}>+1</button>
+      <button class="increment" on:click={() => increment(5)}>+5</button>
+      <button class="increment" on:click={() => increment(10)}>+10</button>
+    </div>
+    <div class="button-row">
+      <button class="decrement" on:click={() => decrement(1)}>-1</button>
+      <button class="decrement" on:click={() => decrement(5)}>-5</button>
+      <button class="decrement" on:click={() => decrement(10)}>-10</button>
+    </div>
   </div>
 </div>
 
@@ -121,19 +127,27 @@
 
   .buttons {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     margin-top: 15px;
+  }
+
+  .button-row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
   }
 
   button {
     margin: 0 5px;
-    padding: 8px 12px;
+    padding: 12px 18px;
     border: none;
     background-color: var(--color-bg-2);
     color: var(--color-text);
     cursor: pointer;
     transition: all 0.3s ease;
     border: 1px solid var(--color-theme-1);
+    font-size: 1.125rem;
   }
 
   button:hover {
@@ -177,8 +191,12 @@
     }
 
     button {
-      padding: 6px 10px;
-      font-size: 14px;
+      padding: 9px 15px;
+      font-size: 1.05rem;
+    }
+
+    .button-row {
+      margin-bottom: 5px;
     }
   }
 </style>
