@@ -76,9 +76,9 @@
 
   .counters {
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 12px;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
     width: 100%;
     max-height: calc(100vh - 120px);
     overflow: auto;
@@ -152,8 +152,7 @@
 
   @media (max-width: 600px) {
     .counters {
-      flex-direction: column;
-      align-items: center;
+      gap: 20px; /* Maintain consistent gap for all screen sizes */
     }
 
     .start-button {
