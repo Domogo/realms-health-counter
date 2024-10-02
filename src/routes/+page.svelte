@@ -78,7 +78,7 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 30px;
+    gap: 12px;
     width: 100%;
     max-height: calc(100vh - 120px);
     overflow: auto;
