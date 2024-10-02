@@ -57,6 +57,7 @@
     padding: 20px;
     box-sizing: border-box;
     position: relative;
+    overflow: hidden;
   }
 
   .content {
@@ -66,7 +67,6 @@
     justify-content: center;
     align-items: center;
     gap: 20px;
-    overflow: auto;
   }
 
   .game-content {
@@ -80,8 +80,6 @@
     align-items: center;
     gap: 20px;
     width: 100%;
-    max-height: calc(100vh - 120px);
-    overflow: auto;
   }
 
   .start-button {
@@ -151,10 +149,6 @@
   }
 
   @media (max-width: 600px) {
-    .counters {
-      gap: 20px; /* Maintain consistent gap for all screen sizes */
-    }
-
     .start-button {
       font-size: 1rem;
       padding: 15px;
